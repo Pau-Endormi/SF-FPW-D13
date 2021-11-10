@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Search post
+{% endblock title %}
+
+{% block content %}
+    <h1>Поиск новостей</h1>
+    <hr>
+    {% if posts %}
+        <form method="GET" class="mx-auto">
+            {{ filter.form }}
+            <input type="submit" value="Найти">
+        </form>
+        <table class="mx-auto">
+            <thead>
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Дата публикации</th>
+                    <th>Превью текста</th>
+                </tr>
+            </thead>
+        {% for post in filter.qs %}
+            <tr>
+                <td><a href="{% url 'post_detail' post.id %}">{{ post.title|censor:"" }}</a></td>
+                <td>{{ post.timeCreation|date:"d.m.Y" }}</td>
+                <td>{{ post.text|truncatechars:50|censor:"" }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}

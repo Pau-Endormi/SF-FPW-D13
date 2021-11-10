@@ -1,0 +1,16 @@
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+    <h2>{{ post.title|censor:"" }}</h2>
+    <p>{{ post.text|truncatechars:50|censor:"" }}</p>
+    <p>{{ message }}</p>
+    <a href="{{ 'http://127.0.0.1:8000' }}{{ post.get_absolute_url }}">{{ post.title|censor:"" }}</a>
+</body>
+</html>

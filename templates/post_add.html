@@ -1,0 +1,20 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Add post
+{% endblock title %}
+
+{% block content %}
+    <h1>Добавление новостей</h1>
+    <hr>
+    {% if is_exceeded_limit_publications %}
+        <h3>Превышен лимит публикаций: не более 3 публикаций в сутки!</h3>
+    {% else %}
+        <form method="POST" class="mx-auto">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Добавить">
+        </form>
+    {% endif %}
+{% endblock content %}

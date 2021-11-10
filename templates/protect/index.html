@@ -1,0 +1,10 @@
+{% extends 'default.html' %}
+
+{% block content %}
+<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+<button> <a href="{% url 'logout' %}">Выйти</a> </button>
+{% if is_not_author %}
+<button> <a href="{% url 'make_me_author' %}"> Хочу стать автором!</a> </button>
+{% endif %}
+{% endblock %}

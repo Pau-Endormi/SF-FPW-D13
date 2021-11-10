@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Edit post
+{% endblock title %}
+
+{% block content %}
+    <h1>Редактирование новостей</h1>
+    <hr>
+    <form method="POST" class="mx-auto">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Редактировать">
+    </form>
+{% endblock content %}

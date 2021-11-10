@@ -1,0 +1,24 @@
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+    <h2>{{ message }}</h2>
+    {% if weekly_articles %}
+        {% for a in weekly_articles %}
+            <div>
+                <h3>{{ a.title|censor:"" }} ({{ a.timeCreation|date:"d.m.Y" }})</h3>
+                <p>{{ a.text|truncatechars:50|censor:"" }}</p>
+                <a href="{{ 'http://127.0.0.1:8000' }}{{ a.get_absolute_url }}">ссылка</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>пусто...</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Delete post
+{% endblock title %}
+
+{% block content %}
+    <h2>Вы действительно хотите удалить данную новость?</h2>
+    <table class="mx-auto">
+        <thead>
+            <tr>
+                <th>Заголовок</th>
+                <th>Дата публикации</th>
+                <th>Превью текста</th>
+            </tr>
+        </thead>
+        <tr>
+            <td><a href="{% url 'post_detail' post.id %}">{{ post.title|censor:"" }}</a></td>
+            <td>{{ post.timeCreation|date:"d.m.Y" }}</td>
+            <td>{{ post.text|truncatechars:50|censor:"" }}</td>
+        </tr>
+    </table>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="подтвердить">
+    </form>
+{% endblock content %}
