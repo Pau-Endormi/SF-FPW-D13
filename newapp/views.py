@@ -1,3 +1,4 @@
+import logging
 import datetime
 import pytz
 
@@ -12,6 +13,8 @@ from django.shortcuts import redirect
 from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForm
+
+logger = logging.getLogger(__name__)
 
 
 class PostsList(ListView):
