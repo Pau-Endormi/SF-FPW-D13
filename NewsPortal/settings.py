@@ -171,6 +171,123 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'style': '{',
+    'formatters': {
+        'f_console': {
+            'format': '{asctime} - {levelname} - {message}',
+            'style': '{',
+        },
+        'f_console_warning': {
+            'format': '{asctime} - {levelname} - {message} {pathname}',
+            'style': '{',
+        },
+        'f_console_error': {
+            'format': '{asctime} - {levelname} - {message} {pathname} {exc_info}',
+            'style': '{',
+        },
+        'f_general': {
+            'format': '{asctime} - {levelname} - {module} {message}',
+            'style': '{',
+        },
+        'f_errors': {
+            'format': '{asctime} - {levelname} - {message} {pathname} {exc_info}',
+            'style': '{',
+        },
+        'f_security': {
+            'format': '{asctime} - {levelname} - {module} {message}',
+            'style': '{',
+        },
+        'f_email': {
+            'format': '{asctime} - {levelname} - {message} {pathname}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'f_console',
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'f_console_warning',
+        },
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'f_console_error',
+        },
+        'file_general': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'f_general',
+            'filename': 'general.log',
+        },
+        'file_errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'f_errors',
+            'filename': 'errors.log',
+        },
+        'file_security': {
+            'class': 'logging.FileHandler',
+            'formatter': 'f_security',
+            'filename': 'security.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'f_email',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'console_error', 'console_warning', 'file_general'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['file_errors'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.db_backends': {
+            'handlers': ['file_errors'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['file_security'],
+        }
+    }
+}
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
